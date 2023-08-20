@@ -28,7 +28,8 @@ def getserial():
     cpuserial = "ERROR000000000"
   return cpuserial
 
-def main(output_file_path):
+def main():
+    output_file_path = "image.jpg"
     capture_image(output_file_path)
 
     files = {'file': open(output_file_path, 'rb')}
@@ -40,4 +41,4 @@ def main(output_file_path):
 
 # Call the function to capture an image and provide the output file path
 if __name__ == "__main__": 
-    main("image.jpg")
+    main()
