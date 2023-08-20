@@ -17,7 +17,7 @@ GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 while True:
     schedule.run_pending()
     time.sleep(1)
-    pin_state = GPIO.input(pin_to_monitor)
+    pin_state = GPIO.input(4)
     if pin_state:
         x = requests.get("https://agriculture-monitoring-system.glitch.me/ping")
         time.sleep(5)
