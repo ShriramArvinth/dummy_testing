@@ -1,6 +1,6 @@
 import schedule
 import time
-import main as capture_and_upload from take_photo_upload_delete_photo
+import main from take_photo_upload_delete_photo
 import RPi.GPIO as GPIO
 import requests
 
@@ -9,7 +9,7 @@ times_to_schedule = ["08:00", "12:30", "17:15"]
 
 # Schedule the function for each time in the list
 for time_str in times_to_schedule:
-    schedule.every().day.at(time_str).do(capture_and_upload)
+    schedule.every().day.at(time_str).do(main)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
