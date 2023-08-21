@@ -7,7 +7,7 @@ path_to_main = os.path.expanduser("~/main")
 def capture_image(output_file):
     try:
         # Specify the raspistill command with required options
-        cmd = "fswebcam -d /dev/video1 -r 1280x720 --no-banner -p YUYV -S 30 --set sharpness=50 --set brightness=70 --set Contrast=20 --delay 2 -F 2 " + output_file
+        cmd = "fswebcam -d /dev/video0 -r 1280x720 --no-banner -p YUYV -S 30 --set sharpness=50 --set brightness=70 --set Contrast=20 --delay 2 -F 2 " + output_file
 
         # Execute the command using subprocess
         subprocess.check_call(cmd, shell=True)
