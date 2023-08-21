@@ -2,11 +2,12 @@ import requests
 import subprocess
 import os
 url = 'https://agriculture-monitoring-system.glitch.me/upload'
+path_to_main = os.path.expanduser("~/main")
 
 def capture_image(output_file):
     try:
         # Specify the raspistill command with required options
-        cmd = "fswebcam -d /dev/video0 -r 1280x720 --no-banner -p YUYV -S 30 --set sharpness=50 --set brightness=70 --set Contrast=20 --delay 2 -F 2 " + output_file
+        cmd = "fswebcam -d /dev/video1 -r 1280x720 --no-banner -p YUYV -S 30 --set sharpness=50 --set brightness=70 --set Contrast=20 --delay 2 -F 2 " + output_file
 
         # Execute the command using subprocess
         subprocess.check_call(cmd, shell=True)
@@ -28,17 +29,17 @@ def getserial():
     cpuserial = "ERROR000000000"
   return cpuserial
 
-def main():
-    output_file_path = "image.jpg"
-    capture_image(output_file_path)
-
-    files = {'file': open(output_file_path, 'rb')}
-    data = {'serial_number': getserial()}
-
-    x = requests.post(url, files=files,  data = data)
-    print(x.status_code)
-    os.remove(output_file_path)
-
 # Call the function to capture an image and provide the output file path
-if __name__ == "__main__": 
-    main()
+output_file_path = path_to_main + "/image.jpg"
+capture_image(output_file_path)
+
+resized_file_path = path_to_main + "/image_resized.jpg"
+subprocess.check_call("python " + path_to_main + "/image_resize.py", shell=True)
+
+files = {'file': open(resized_file_path, 'rb')}
+data = {'serial_number': getserial()}
+
+x = requests.post(url, files=files,  data = data)
+print(x.status_code)
+os.remove(output_file_path)
+os.remove(resized_file_path)
