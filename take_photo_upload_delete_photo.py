@@ -44,3 +44,6 @@ def main():
     print(x.text)
     os.remove(output_file_path)
     os.remove(resized_file_path)
+
+if __name__ == "__main__":
+    main()
