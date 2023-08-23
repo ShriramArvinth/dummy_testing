@@ -29,17 +29,18 @@ def getserial():
     cpuserial = "ERROR000000000"
   return cpuserial
 
-# Call the function to capture an image and provide the output file path
-output_file_path = path_to_main + "/image.jpg"
-capture_image(output_file_path)
+def main():
+    # Call the function to capture an image and provide the output file path
+    output_file_path = path_to_main + "/image.jpg"
+    capture_image(output_file_path)
 
-resized_file_path = path_to_main + "/image_resized.jpg"
-subprocess.check_call("python " + path_to_main + "/image_resize.py", shell=True)
-
-files = {'file': open(resized_file_path, 'rb')}
-data = {'serial_number': getserial()}
-
-x = requests.post(url, files=files,  data = data)
-print(x.status_code)
-os.remove(output_file_path)
-os.remove(resized_file_path)
+    resized_file_path = path_to_main + "/image_resized.jpg"
+    subprocess.check_call("python " + path_to_main + "/image_resize.py", shell=True)
+    
+    files = {'file': open(resized_file_path, 'rb')}
+    data = {'serial_number': getserial()}
+    
+    x = requests.post(url, files=files,  data = data)
+    print(x.text)
+    os.remove(output_file_path)
+    os.remove(resized_file_path)
